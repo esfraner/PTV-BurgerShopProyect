@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Francisco Encinas Ruiz</title>
+
+</head>
+
+<body>
+    <div id="contenedor">
+
+        <br> Nombre:
+        <input id="inputNombre" type="text">
+        <br>
+        <br> Apellido:
+        <input id="inputApellido" type="text">
+        <br>
+        <br> ID:
+        <input id="inputID" type="text">
+        <br>
+        <br>
+        <button onclick="iniciar()">Iniciar</button>
+        <br>
+        <br>
+        <button onclick="buscarPorNombre()">buscarPorNombre</button>
+        <br>
+        <br>
+        <button onclick="buscarPorApellido()">buscarPorApellido</button>
+        <br>
+        <br>
+        <button onclick="agregarPersona()">agregarPersona</button>
+        <br>
+        <br>
+        <button onclick="borrarPersona()">borrarPersona</button>
+        <br>
+        <br>
+        <button onclick="modificarPersona()">modificarPersona</button>
+
+    </div>
+</body>
+
+<script>
+    const NUMBER_PERSON = 20;
+    let ID = 0;
+    const Nombre = ["Fran", "Gloria", "Carlos", "Luis"];
+    const Apellido = ["Encinas", "Cano", "Caballero", "Garcia"];
+    const Edad = [20, 20, 30];
+    const Personas = [];
+    let nombreSeleccionado = "";
+    let apellidoSeleccionado = "";
+    let IDSeleccionado = 0;
+
+
+    function iniciar() {
+        for (let i = NUMBER_PERSON; i > 0; i = i-1) {
+            const random1 = Math.floor((Math.random() * Nombre.length));
+            const random2 = Math.floor((Math.random() * Apellido.length));
+
+            const NombrePersona = Nombre[random1];
+            const ApellidoPersona = Apellido[random2];
+
+            const obj = {
+                Nombre: NombrePersona,
+                Apellido: ApellidoPersona,
+                ID: ID++
+            };
+            Personas.push(obj);
+        }
+    }
+
+    function buscarPorNombre() {
+        nombreSeleccionado = document.getElementById('inputNombre').value;
+        if (nombreSeleccionado === "") {
+            console.log("Algun campo está vacío, inténtalo de nuevo.")
+            return;
+        } 
+        Personas.forEach((person, index) => foundPerson(person, index));     
+    }
+    function foundPerson(person, index){
+        if (persona.Nombre.toUpperCase() === nombreSeleccionado.toUpperCase()) {
+            console.log(persona.Nombre + " " + persona.Apellido);
+            return;
+        } 
+        console.log("En la posicion " + index + " no se encuentran coincidencias");
+    }
+
+    function buscarPorApellido() {
+        apellidoSeleccionado = document.getElementById('inputApellido').value;
+        if (apellidoSeleccionado == "") {
+            console.log("Algun campo está vacío, inténtalo de nuevo.")
+        } else {
+            for (let i = 0; i < Personas.length; i++) {
+                if (Personas[i].Apellido == apellidoSeleccionado) {
+                    console.log(Personas[i].Nombre + " " + Personas[i].Apellido);
+                } else {
+                    console.log("En la posición " + i + " no se encuentran coincidencias");
+                }
+            }
+        }
+    }
+
+    function agregarPersona() {
+        nombreSeleccionado = document.getElementById('inputNombre').value;
+        apellidoSeleccionado = document.getElementById('inputApellido').value;
+
+        const person = {
+            Nombre: nombreSeleccionado,
+            Apellido: apellidoSeleccionado,
+        }
+        if (isEmptyPerson(person)) {
+            console.log("Algun campo está vacío, inténtalo de nuevo.");
+            return;
+        }
+        if (isRepeat(person)){
+            console.log("Esta persona está repetida, inténtalo de nuevo.");
+            return;
+        }
+        person.ID = ID++; 
+        Personas.push(person);
+    }
+
+    function isEmptyPerson(person) {
+        return person.Nombre ===  "" || person.Apellido === "";
+    }
+    function isRepeat(person){
+       return Personas.some(_person => _person.equals(person));
+    }
+
+    function equals(person1, person2){
+        return _person.Nombre === person.Nombre && _person.Apellido === person.Apellido
+    }
+
+    function findPersonBydId(id) {
+        return Personas.find(person => person.id === id);
+    }
+    /* function buscarPersona() {
+        let existe = false;
+        let posicion = 0;
+        IDSeleccionado = document.getElementById('inputID').value;
+        for (let i = 0; i < Personas.length; i++) {
+            if (Personas[i].ID == IDSeleccionado) {
+                existe = true;
+                posicion = i;
+            }
+        }
+        return existe;
+    } */
+
+    function borrarPersona() {
+        //Ejercicio para hacer
+        buscarPersona();
+        let ex = buscarPersona();
+        if (ex) {
+            for (let i = 0; i < Personas.length; i++) {
+                if (Personas[i].ID == IDSeleccionado) {
+                    Personas.splice(i, 1);
+                    console.log("Eliminado")
+                }
+            }
+        } else {
+            console.log("Error, no existe el ID.");
+        }
+    }
+
+
+    function modificarPersona() {
+        buscarPersona();
+
+        let existePersona = buscarPersona();
+        nombreSeleccionado = document.getElementById('inputNombre').value;
+        apellidoSeleccionado = document.getElementById('inputApellido').value;
+        IDSeleccionado = document.getElementById('inputID').value;
+
+        if (nombreSeleccionado == "" || apellidoSeleccionado == "" || IDSeleccionado == "") {
+            console.log("Algun campo está vacío, inténtalo de nuevo.")
+        } else {
+            if (existePersona) {
+                for (let i = 0; i < Personas.length; i++) {
+                    if (Personas[i].ID == IDSeleccionado) {
+
+                        obj = {
+                            Nombre: nombreSeleccionado,
+                            Apellido: apellidoSeleccionado,
+                            ID: IDSeleccionado
+                        }
+
+                        Personas[i] = obj;
+                        console.log("Modificado")
+                    }
+                }
+            } else {
+                console.log("Error, no existe el ID.");
+            }
+        }
+    }
+</script>
+
+</html>

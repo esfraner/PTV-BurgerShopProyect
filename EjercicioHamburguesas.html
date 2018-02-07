@@ -1,0 +1,308 @@
+
+<html lang="es">
+
+    <head>
+        <meta charset="utf-8" />
+        
+    
+    </head>
+    
+    <body>
+        <div id="contenedor">
+            <br>
+            <br>
+            <h2>Hamburguesas</h2>
+    
+            <div id="divMeatType">
+    
+                <button onclick="addHamburguesaSola()">Añadir</button>
+                <button onclick="deleteBurger('Hamburguesa sola')">Quitar</button> Hamburgesa sola
+                <br>
+                <button onclick="addHamburguesaVegana()">Añadir</button>
+                <button onclick="deleteBurger('Hamburguesa VEGANA')">Quitar</button> Hamburgesa Vegana
+                <br>
+                <button onclick="addHamburguesaPollo()">Añadir</button>
+                <button onclick="deleteBurger('Hamburguesa de pollo')">Quitar</button> Hamburgesa de pollo
+                <br>
+                <button onclick="addHamburguesaCerdo()">Añadir</button>
+                <button onclick="deleteBurger('Hamburguesa de cerdo')">Quitar</button> Hamburgesa de cerdo
+                <br>
+                <br>
+                <button onclick="addHamburguesaTernera()">Añadir</button>
+                <button onclick="deleteBurger('Hamburguesa de ternera')">Quitar</button> Hamburgesa de ternera
+                <br>
+                <button onclick="addHamburguesaBacon()">Añadir</button>
+                <button onclick="deleteBurger('No Vegana bacon')">Quitar</button> Hamburgesa de bacon
+                <br>
+                <button onclick="addHamburguesaVegana2()">Añadir</button>
+                <button onclick="deleteBurger('Hamburguesa VEGANA 2')">Quitar</button> Hamburgesa Vegana 2
+                <br>
+                <br>
+            </div>
+            <br>
+            <h2>Ingredientes extra</h2>
+            <div>
+                ID de la hamburguesa que quieres cambiar:
+                <input type="text" id="idBurgerExtraIngredient">
+            </div>
+            <br>
+            <div id="divIngredients">
+                <button onclick="addExtraIngredient('Lechuga')">Añadir</button>
+                <button onclick="deleteExtraIngredient('Lechuga')">Quitar</button> Lechuga
+                <br>
+                <button onclick="addExtraIngredient('Tomate')">Añadir</button>
+                <button onclick="deleteExtraIngredient('Tomate')">Quitar</button> Tomate
+                <br>
+                <button onclick="addExtraIngredient('Pepinillo')">Añadir</button>
+                <button onclick="deleteExtraIngredient('Pepinillo')">Quitar</button> Pepinillo
+                <br>
+                <button onclick="addExtraIngredient('Queso')">Añadir</button>
+                <button onclick="deleteExtraIngredient('Queso')">Quitar</button> Queso
+                <br>
+                <button onclick="addExtraIngredient('Cebolla')">Añadir</button>
+                <button onclick="deleteExtraIngredient('Cebolla')">Quitar</button> Cebolla
+                <br>
+                <button onclick="addExtraIngredient('Bacon')">Añadir</button>
+                <button onclick="deleteExtraIngredient('Bacon')">Quitar</button> Bacon
+                <br>
+    
+            </div>
+            <h2>Utilidades</h1>
+                <div>
+                    <button onclick="findGlutenFree()">Ver</button> Hamburguesas glutenFree
+                    <br>
+                    <button onclick="findLactosaFree()">Ver</button> Hamburguesas lactoseFree
+                    <br>
+                    <button onclick="findExpensiveThanFive()">Ver</button> Hamburguesas más caras de 5 euros
+                    <br>
+                    <button onclick="orderedLowestToHighest()">Ver</button> Hamburguesas ordenadas por precio de menor a mayor
+                    <br>
+                    <button onclick="glutenFreeOrderedByIngredientsNumber()">Ver</button> Hamburguesas glutenFree ordenadas por ingrendientes
+                    <br>
+                    <button onclick="totalPrice()">Ver</button> Consultar precio total
+                    <br>
+                    <button onclick="showOrder()">Ver</button> Consultar pedido
+                    <br>
+                </div>
+        </div>
+    </body>
+    
+    <script>
+        let id = 0;
+        let order = [];
+        const PRICE_EXTRA_INGREDIENTS = 0.3;
+ /*        let curBurger = [{
+            id: 0,
+            name: "",
+            ingredients: [],
+            extraIngredients: [""],
+            ingredientsNumber: 0,
+            price: 0
+        }]; */
+        const burgers = [{
+                name: "Hamburguesa de pollo",
+                price: 4,
+                ingredients: ["Pollo", "Lechuga", "Tomate", "Queso"],
+                extraIngredients: [],
+                ingredientsNumber: 4,
+            },
+            {
+                name: "Hamburguesa de cerdo",
+                price: 4.15,
+                ingredients: ["Cerdo", "Lechuga", "Tomate", "Queso"],
+            },
+            {
+                name: "Hamburguesa de ternera",
+                price: 4.20,
+                ingredients: ["Ternera", "Lechuga", "Tomate", "Queso"],
+            },
+            {
+                name: "Hamburguesa VEGANA",
+                price: 5.10,
+                ingredients: ["Pan de garbanzos", "Lechuga", "tomate"],
+            },
+            {
+                name: "Hamburguesa VEGANA 2",
+                price: 5.5,
+                ingredients: ["Pan de garbanzos", "Lechuga", "Tomate", "Cebolla"],
+            },
+            {
+                name: "No Vegana bacon",
+                price: 5,
+                ingredients: ["Pan de garbanzos", "Lechuga", "Tomate", "Bacon"],
+            },
+            {
+                name: "Hamburguesa sola",
+                price: 2,
+                ingredients: ["Pollo"],
+                extraIngredients: [],
+                ingredientsNumber: 1,
+            }
+        ]
+    
+        function findGlutenFree() {
+            console.log(burgers.filter(burger => burger.ingredients.includes("Pan de garbanzos")));
+        }
+    
+        function findLactosaFree() {
+            console.log(burgers.filter(burger => !burger.ingredients.includes("Queso")));
+        }
+    
+        function findExpensiveThanFive() {
+            console.log(burgers.filter(burger => burger.price > 5));
+        }
+    
+        function orderedLowestToHighest() { //ordenar de menor a mayor
+            console.log(burgers.sort(function (obj1, obj2) {
+                return obj1.price - obj2.price;
+            }));
+        }     
+        function glutenFreeOrderedByIngredientsNumber() {
+            console.log(burgers.sort(function (obj1, obj2) {
+                return obj1.ingredients.length > obj2.ingredients.length;
+            }));
+        }
+
+        function isBurger(burger, burgerType){
+            return burger.name === burgerType;
+        }
+    
+        /* const isBurger = ((burger, burgerType) => burger.name === burgerType); */
+        const isBurgerSimple = burger => isBurger(burger,  "Hamburguesa sola");
+        const isBurgerChicken = burger => isBurger(burger,  "Hamburgesa de pollo");
+        const isBurgerPork = burger=> isBurger(burger, "Hamburguesa de cerdo");
+
+        // functions de seleccion
+
+
+        function addBurger(burger){
+            order.push({
+                id: id++,
+                ...burger,
+            });
+        }
+        function findBurger(burgerType){
+            return burgers.find(isBurgerSimple);
+        }
+        function findIndexBurger(burgerType){
+            return order.findIndex(burger => burger.name === burgerType);
+        }
+
+        function removeBurger(burgerIndex){
+            order.splice(burgerIndex, 1);
+        }
+
+        function addHamburguesaSola() {
+            const burger = findBurger(isBurgerSimple);
+            addBurger(burger);
+        }
+    
+        
+        // addChickenBurger
+        function addHamburguesaPollo() {
+            const burger = findBurger(isBurgerChicken);
+            addBurger(burger);
+        }
+    
+        function addHamburguesaCerdo() {
+            const burger = findBurger(isBurgerPork);
+            addBurger(burger);
+        }
+    
+        function addHamburguesaTernera() {
+            const burger = findBurger(isBurgerTernera);
+            addBurger(burger);
+        }
+    
+        function addHamburguesaVegana() {
+            const burger = {
+                id: id++,
+                name: "Hamburguesa Vegana",
+                ingredients: ["Pan de garbanzos", "Lechuga", "tomate"],
+                extraIngredients: [],
+                ingredientsNumber: 1,
+                price: 5.10
+            };
+            order.push(burger);
+        }
+    
+        function addHamburguesaVegana2() {
+            const burger = {
+                id: id++,
+                name: "Hamburguesa Vegana 2",
+                ingredients: ["Pan de garbanzos", "Lechuga", "Tomate", "Cebolla"],
+                extraIngredients: [],
+                ingredientsNumber: 1,
+                price: 5.5
+            };
+            order.push(burger);
+        }
+    
+        function addHamburguesaBacon() {
+            const burger = {
+                id: id++,
+                name: "No Vegana bacon",
+                ingredients: ["Pan de garbanzos", "Lechuga", "Tomate", "Bacon"],
+                extraIngredients: [],
+                ingredientsNumber: 4,
+                price: 5
+            };
+            order.push(burger);
+        }
+
+
+    
+        function deleteBurger(hamburger) {
+            const index = findIndexBurger(hamburger);
+            removeBurger(index);
+        }
+    
+/*         arr = [1, 2, 3];
+        arr.foreach ( (element, index) => {
+            arr[index] = element * 2;
+        });
+
+        const newArray = arr.map(( element) => element * 2); 
+
+        arr.reduce( (acumulador, element) => acumulador + element.price, 0)   */
+
+
+        function totalPrice() {
+            const total = order.reduce((total, burger) => total + burger.price, 0);
+            console.log("El precio total del pedido es: " + total);
+        }
+    
+        function addExtraIngredient(extraIngredient) {
+           const burger = findBurgerInOrder();
+           if(!burger){
+               throw new Error("No existe la Hamburguesa");
+           }
+           addIngredient(burger, extraIngredient);
+            burger.extraIngredients.push(extraIngredient);
+            burger.price = burger.price + PRICE_EXTRA_INGREDIENTS;
+        }
+        function findBurgerInOrder() {
+            const position = document.getElementById("idBurgerExtraIngredient").value;
+            return burger = order[position];
+        } 
+        function addIngredient(burger, extraIngredient){
+            burger.extraIngredients.push(extraIngredient);
+            burger.price += PRICE_EXTRA_INGREDIENTS;
+        }
+    
+     
+        function deleteExtraIngredient(ingredient) {
+            const position = document.getElementById("idBurgerExtraIngredient").value;
+            const extraIngredientsBurgerSelected = order[position].extraIngredients;
+            const indexExtraIngredient = extraIngredientsBurgerSelected.findIndex(burger => burger === ingredient);
+            
+            order[position].extraIngredients.splice(indexExtraIngredient, 1);
+            order[position].price -= PRICE_EXTRA_INGREDIENTS;
+        }
+    
+        function showOrder() {
+            console.log(order);
+        }
+    </script>
+    
+    </html>

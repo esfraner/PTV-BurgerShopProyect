@@ -1,0 +1,27 @@
+Queremos gestionar un TPV de Hamburguesas.
+
+Una lista de ingredientes disponibles (para el extra): Tomate, Lechuga, ....
+
+Existirá una lista de Productos (Hamburguesas predefinidas) con los siguientes atributos:
+ - ID: number
+ - Nombre: "Pollo",
+ - Precio: numero
+ - Numero de Ingredientes: entero;
+ - Ingredientes: Un array de objetos: { nombre: "Pollo", glutenFree: boolean, lactosaFree: boolean}
+
+ Cada ingrediente extra tiene un precio de 30 céntimos.
+
+ Se pueden hacer las siguientes operaciones sobre una Order (Petición):
+
+- Agregar una hamburguesa predefinida (seleccionandola)
+- Eliminarla de la lista de peticiones
+- Consultar el precio total del pedido.
+-----------
+- Agregar a una hamburguesa pedida un ingrediente extra.
+- Quitarle a una hamburguesa pedida un ingrediente extra (no se pueden quitar los que traen). 
+- Listar todas las hamburguesas que son gluteenFree de la carta
+- Listar todas las hamburguesas que son lactosaFree de la carta
+- Listar todas las hamburguesas más caras de 5€.
+- Listar todas las hamburguesas ordenadas por precio de menor a mayor.
+- Listar todas las hamburguesas que son gluteenFree ordenadas por el número de ingredientes.
+
