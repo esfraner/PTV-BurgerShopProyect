@@ -1,80 +1,55 @@
 function Beverage({
-    name = "",
     centiliters = 33,
     isFizzy = true,
     alcoholVolume = 0.0,
-    imagenSrc = "",
-    price = 0,
-    tax = 0,
-    kcal = 0,
-    stock = 0
+    name,
+    imageSrc,
+    netPrice,
+    tax,
+    kcal,
+    stock,
 }) {
     this.centiliters = centiliters;
     this.isFizzy = isFizzy;
     this.alcoholVolume = alcoholVolume;
-    Item.call(this, name);
+    Item.call(this, {
+        name: name,
+        imageSrc: imageSrc,
+        netPrice: netPrice,
+        tax: tax,
+        kcal: kcal,
+        stock: stock
+    });
 }
 
-Beverage.prototype.getName = function () {
-    return this.name;
-}
+//ITEM
+Beverage.prototype = Object.create(Item.prototype);
+Beverage.prototype.constructor = Beverage.constructor;
+
+//GETTERS
+
 Beverage.prototype.getCentiliters = function () {
     return this.centiliters;
 }
-Beverage.prototype.isFizzy = function () {
+
+Beverage.prototype.getFizzy = function () {
     return this.isFizzy;
 }
+
 Beverage.prototype.getAlcoholVolume = function () {
     return this.alcoholVolume;
 }
-Beverage.prototype.setName = function (_name) {
-    this.name = _name;
+
+//SETTERS
+
+Beverage.prototype.setCentiliters = function (_centiliters) {
+    this.centiliters=_centiliters;
 }
+
 Beverage.prototype.setFizzy = function (_isFizzy) {
     this.isFizzy = _isFizzy;
 }
+
 Beverage.prototype.setAlcoholVolume = function (_AlcoholVolume) {
     this._AlcoholVolume = _AlcoholVolume;
-}
-
-
-Beverage.prototype.getName = function () {
-    return this.name;
-}
-Beverage.prototype.getPrice = function () {
-    return this.price;
-}
-Beverage.prototype.getImagenSrc = function () {
-    return this.imagenSrc;
-}
-Beverage.prototype.getTax = function () {
-    return this.tax;
-}
-Beverage.prototype.getKcal = function () {
-    return this.kcal;
-}
-Beverage.prototype.getStock = function () {
-    return this.stock;
-
-
-}
-
-Beverage.prototype.setName = function (_name) {
-    this.name = _name;
-}
-Beverage.prototype.setPrice = function (_price) {
-    this.price = _price;
-}
-
-Beverage.prototype.setImagenSrc = function (_imagenSrc) {
-    this.imagenSrc = _imagenSrc;
-}
-Beverage.prototype.setTax = function (_tax) {
-    this.tax = _tax;
-}
-Beverage.prototype.setKcal = function (_kcal) {
-    this.kcal = _kcal;
-}
-Beverage.prototype.setStock = function (_stock) {
-    this.stock = _stock;
 }

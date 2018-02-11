@@ -55,16 +55,12 @@ Order.prototype.addExtraIngredient = function (burger, extraIngredient) {
 }
 
 Order.prototype.deleteExtraIngredient = function (burger, extraIngredient) {
-    // pues imagiante que estamos en order, bien, nos llegan dos parametros, burger y el ingrediente
-    // order.deleteExtraIngredient(hamburguesa1, 'lechuga');
-
+   
     if (!this.existsBurger(burger)) { //comprueba
         throw new Error("Burger doesn't exist");
     }
-
     burger.removeExtraIngredient(burger, extraIngredient);
-    //y aqui le llega la funcion con los paramtros
-    //no tiene nada complicado
+  
 
 }
 Order.prototype.arrayOrderLong = function(){
